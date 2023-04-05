@@ -17,8 +17,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.post("/upload", upload.single("avatar"), (req, res) => {
-  res.json(req.file);
+app.get("/upload", upload.single("avatar"), (req, res) => {
+  res.json("hello lxc");
 });
 
 app.listen(1234, () => {
