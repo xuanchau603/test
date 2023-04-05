@@ -3,10 +3,10 @@ const multer = require("multer");
 const path = require("path");
 var mysql = require("mysql");
 var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "db_shopmypham",
+  host: "sql12.freesqldatabase.com",
+  user: "sql12611351",
+  password: "uUG5gTsVMH",
+  database: "sql12611351",
 });
 
 con.connect(function (err) {
@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.get("/upload", upload.single("avatar"), (req, res) => {
-  var sql = "SELECT * FROM roles";
+  var sql = "SELECT * FROM users";
   con.query(sql, function (err, results) {
     if (err) throw err;
     res.json(results);
