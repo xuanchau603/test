@@ -1,6 +1,18 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
+var mysql = require("mysql");
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "db_shopmypham",
+});
+
+con.connect(function (err) {
+  if (err) throw err;
+  console.log("Connected!!!");
+});
 
 const app = express();
 app.use(express.static(path.join(__dirname, "uploads")));
@@ -18,7 +30,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.get("/upload", upload.single("avatar"), (req, res) => {
-  res.json("hello lxc");
+  var sql = "SELECT * FROM roles";
+  con.query(sql, function (err, results) {
+    if (err) throw err;
+    res.json(results);
+  });
 });
 
 app.listen(1234, () => {
